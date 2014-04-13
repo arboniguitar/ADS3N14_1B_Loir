@@ -1,0 +1,65 @@
+package Aplicacao;
+
+public class AplicacaoHeap {
+	static int cont = 0;
+// o método Heap dividirá o vetor em pais e filhos.Cada pai terá  2 filhos e ordena a partir do último pai.
+	public static void main(String a[]) {
+		int[] v = new int[] { 1, 7, 3, 6, 5, 14, 11, 23, 31, 29 };
+		for (int i = 0; i < v.length; i++) {
+			System.out.println(v[i]);
+
+		}
+
+		heapSort(v);
+		System.out.println("Vamos ordenar um vetor de " + v.length
+				+ " posições.");
+
+		for (int i = 0; i < v.length; i++) {
+			System.out.println(v[i]);
+
+		}
+		System.out.println("Foram feitas " + cont + " Trocas");// informa a quantidade de trocas efetuadas																// pelo Heapsort
+	}
+	// Ordena os elemento no momento em que são inseridos no vetor
+	public static void heapSort(int[] v) {
+		buildMaxHeap(v);
+		int n = v.length;
+
+		for (int i = v.length - 1; i > 0; i--) {
+			swap(v, i, 0); // troca
+			maxHeapify(v, 0, --n);
+			
+		}
+	}
+	// Heap Máximo - o maior elemento fica na raiz)
+	private static void buildMaxHeap(int[] v) {// Verificando se o pa é maior do que os filhos
+		for (int i = v.length / 2 - 1; i >= 0; i--)
+			// verificando qual o valor mais alto do vetor
+			maxHeapify(v, i, v.length);
+		
+	}
+
+	private static void maxHeapify(int[] vetor, int pos, int tamanhoDoVetor) {
+		int max = 2 * pos + 1, right = max + 1;// verificando qual dos filhos é maior
+
+		if (max < tamanhoDoVetor) {
+
+			if (right < tamanhoDoVetor && vetor[max] < vetor[right])
+				max = right;// o maior valor sempre é deslocado para a direita
+							// do vetor na ordem crescente
+			if (vetor[max] > vetor[pos]) {
+				swap(vetor, max, pos);
+				maxHeapify(vetor, max, tamanhoDoVetor);
+				cont++;// conta quantas trocas de posição foram feitas no vetor
+			}
+		}
+	}
+
+	public static void swap(int[] v, int j, int aposJ) {
+		int aux = v[j];
+		v[j] = v[aposJ];
+		v[aposJ] = aux;
+
+	}
+
+}
